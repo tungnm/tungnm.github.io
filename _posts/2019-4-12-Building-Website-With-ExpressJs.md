@@ -7,7 +7,7 @@ title: Building simple website with Express
 This tutorial walk you through the process of building a website using Node.Js and Express. Node is a generic server framework that can do many things. Express is a library of Node for serving websites. Better understanding of Express will come with more coding.
 
 # Part I - Website: Hello world
-After this exercise you can go to a browser and type in the url: http://localhost:3000/hello to get a message replied from the server.
+The goal of this part is to setup a web server running locally in your laptop. The server listens for connection from local browser with the path: http:localhost:3000/hello and return a text "Hello world".
 ## Step 1 Installation
 * [Install Node.js](https://nodejs.org/en/download/)
 * Open terminal and create a folder for the project: `mkdir ~/nodeProject && cd ~/nodeProject`
@@ -54,8 +54,17 @@ The reason is because javascript language try to intepret a type of a variable a
 ### What happen behind the scene
 Ok, with the quick note on Javascript, let's take a look at `server.js` again.
 
-The first line: *var express = require('express');** simply includes the Express library and assign the library to the variable named **express**
+The first line: *var express = require('express');* simply includes the Express library and assign the library to the variable named **express**
 
 Second line: *var app = express();* creates a new object of the Express Web Server class and assign the object to the variable named **app**. These first 2 lines will always appear in all of your Express applications, so no need to spent too much time understanding them.
 
-Next: *app.get('/hello', processRequest);* . This tells the web server: when someone requests a url with the path */hello* call the function named **processRequest**. The function is defined below. Now this is a fundamental step that you have to understand.
+Next: *app.get('/hello', processRequest);* . This tells the web server: when someone requests a url with the path */hello* call the function named **processRequest**. The function is defined below. This is a fundamental step that you have to understand. 
+
+This functions is not any function, it has to take in 2 parameters: *function processRequest(request, response)*. **request** includes any information that a user wants to send to the server. Your server code typically reads information from **request** for processing. Example of **request** information is new user registration with email, name, address ; a book name user want to search for... 
+
+**response** is the object that your server put data into, to send back to the browser. In this example, the server use *response.send('Hello world');* to send the reply back.
+
+Last line: *app.listen(3000);* . This gets the server to start listening on port 3000 for any connection from clients. Whenever a client connects(someone user the browser to hit the url), the function **processRequest** is called. Note that your port number on the url needs to match with this number, so *http://localhost:2999/hello* would not work.
+
+###Excercise
+Change the server code so that *http://localhost:2999/about* also returns a short message describing the website
