@@ -8,6 +8,7 @@ This tutorial walk you through the process of building a website using Node.Js a
 
 # Part I - Website: Hello world
 The goal of this part is to setup a web server running locally in your laptop. The server listens for connection from local browser with the path: http:localhost:3000/hello and return a text "Hello world".
+
 ## Step 1 Installation
 * [Install Node.js](https://nodejs.org/en/download/)
 * Open terminal and create a folder for the project: `mkdir ~/nodeProject && cd ~/nodeProject`
@@ -17,7 +18,7 @@ The goal of this part is to setup a web server running locally in your laptop. T
 * run `npm init`. This command asks few questions and setup the Node project for you. Simply press Enter on any field to use the default value.
 
 ## Step 3 Write the server code
-Any text editing software is Ok but highly recommend[Visual Studio Code](https://code.visualstudio.com/Download)
+Any text editing software is Ok but highly recommend [Visual Studio Code](https://code.visualstudio.com/Download)
 
 Create a new file call server.js and enter the following code:
 ```javascript
@@ -51,7 +52,7 @@ var name = "Tung";
 ```
 The reason is because javascript language try to intepret a type of a variable at runtime, and do a best guess for the type. This type-less characteristic is also true for function. If you look at the function definition below: *function processRequest(request, response)*. There is no return type either, because of the same reason.
 
-### What happen behind the scene
+### Behind the scene
 Ok, with the quick note on Javascript, let's take a look at `server.js` again.
 
 The first line: *var express = require('express');* simply includes the Express library and assign the library to the variable named **express**
@@ -66,5 +67,39 @@ This functions is not any function, it has to take in 2 parameters: *function pr
 
 Last line: *app.listen(3000);* . This gets the server to start listening on port 3000 for any connection from clients. Whenever a client connects(someone user the browser to hit the url), the function **processRequest** is called. Note that your port number on the url needs to match with this number, so *http://localhost:2999/hello* would not work.
 
-###Excercise
+### Excercise
 Change the server code so that *http://localhost:2999/about* also returns a short message describing the website
+
+# Part II - Website: Hello HTML
+The second part continues from the first one. Our website would now return HTML pages. The home page has URL to the About page. Both pages uses a CSS file for styling and an image file for the site logo.
+
+## Step 1 Add HandleBars view engine
+In the previous part, we just send a text 'hello world' back to the client. To read an HTML file and send to client, we need to add a view engine. A view engine is simply another library that makes it easy to work with HTML content.
+The view engine we are using in this project is *HandleBars*
+
+First, from your project folder, install the view engine library: `npm install --save express-handlebars`
+
+Make the following code change to *server.js*:
+```javascript
+var express = require('express');
+//new code
+var handlebars = require('express-handlebars');
+
+var app = express();
+//new code
+app.engine('handlebars', handlebars());
+app.set('view engine', 'handlebars');
+
+app.get('/hello', processRequest);
+app.listen(3000);
+
+function processRequest(request, response) {
+    console.log('Client request received');
+    response.send('Hello world');
+}
+```
+These 3 new lines just include the HandleBars library and set it as the view engine for the web server object.
+
+## Step 2 Add HTML pages
+
+
