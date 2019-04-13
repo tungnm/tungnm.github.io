@@ -37,6 +37,8 @@ After saving the file, go to terminal and type: `node server.js` . This command 
 * `Hello world` shows up in your browser
 * In the terminal, you see: `Client request received.`
 
+![Hello world](/images/part-1-end.png "Part 1 ends")
+
 ### Javascript quick bite
 Let's take a look at server.js file. The language of Node.js is Javascript. There are few things to notice when looking into this file.
 
@@ -53,6 +55,9 @@ var name = "Tung";
 The reason is because javascript language try to intepret a type of a variable at runtime, and do a best guess for the type. This type-less characteristic is also true for function. If you look at the function definition below: *function processRequest(request, response)*. There is no return type either, because of the same reason.
 
 ### Behind the scene
+
+![Diagram 1](/images/part-1-diagram-1.png "Part 1 Diagram 1")
+
 Ok, with the quick note on Javascript, let's take a look at `server.js` again.
 
 The first line: *var express = require('express');* simply includes the Express library and assign the library to the variable named **express**
