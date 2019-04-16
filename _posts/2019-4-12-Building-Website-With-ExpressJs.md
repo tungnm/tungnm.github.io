@@ -11,16 +11,16 @@ The goal of this part is to setup a web server running locally in your laptop. T
 
 ## Step 1 Installation
 * [Install Node.js](https://nodejs.org/en/download/)
-* Open terminal and create a folder for the project: `mkdir ~/nodeProject && cd ~/nodeProject`
-* Install Express: `npm install --save express`
+* Open terminal and create a folder for the project then go to the folder: `mkdir ~/nodeProject && cd ~/nodeProject`
+* Install Express by typing the following command: `npm install --save express`. Npm is the command provided by Node for managing Node package, library
 
 ## Step 2 Initialize the project
-* run `npm init`. This command asks few questions and setup the Node project for you. Simply press Enter on any field to use the default value.
+* Still on the same project folder, run `npm init`. This command asks few questions and setup the Node project for you. Simply press Enter on any field to use the default value.
 
 ## Step 3 Write the server code
 Any text editing software is Ok but highly recommend [Visual Studio Code](https://code.visualstudio.com/Download)
 
-Create a new file call server.js and enter the following code:
+On the project folder, create a new file call server.js and enter the following code:
 ```javascript
 var express = require('express');
 var app = express();
@@ -33,13 +33,15 @@ function processRequest(request, response) {
     response.send('Hello world');
 }
 ```
-After saving the file, go to terminal and type: `node server.js` . This command starts your Node application. Now go to any browser and type in the url: `localhost:3000/hello`. You will see 2 things:
+After saving the file, go to terminal and type: `node server.js` . This command starts your Node web server. The server now waiting for connection. Go to any browser and type in the url: `localhost:3000/hello`. You will see 2 things:
 * `Hello world` shows up in your browser
 * In the terminal, you see: `Client request received.`
 
+You can leave the server running or terminate the server by pressing Control + C on the terminal. Any time you make change to server.js, you should save the file, close the running server with Control + C and then relaunch it with `node server.js`
+
 ![Hello world](/images/part-1-end.png "Part 1 ends")
 
-### Javascript quick bite
+### Javascript basics
 Let's take a look at server.js file. The language of Node.js is Javascript. There are few things to notice when looking into this file.
 
 First is the variable declaration: *var express = require('express')*. Note the key word **var** which is strange if you come from another programming language. Javascript does not require a variable to have type so every declaration would start with **var**. In C++ for example, to declare an integer and a String, you need to do:
@@ -58,7 +60,7 @@ The reason is because javascript language try to intepret a type of a variable a
 
 ![Diagram 1](/images/part-1-diagram-1.png "Part 1 Diagram 1")
 
-Ok, with the quick note on Javascript, let's take a look at `server.js` again.
+Ok, with the quick overview on Javascript, let's take a look at `server.js` again.
 
 The first line: *var express = require('express');* simply includes the Express library and assign the library to the variable named **express**
 
@@ -70,10 +72,10 @@ This functions is not any function, it has to take in 2 parameters: *function pr
 
 **response** is the object that your server put data into, to send back to the browser. In this example, the server use *response.send('Hello world');* to send the reply back.
 
-Last line: *app.listen(3000);* . This gets the server to start listening on port 3000 for any connection from clients. Whenever a client connects(someone user the browser to hit the url), the function **processRequest** is called. Note that your port number on the url needs to match with this number, so *http://localhost:2999/hello* would not work.
+Last line: *app.listen(3000);* . This gets the server to start listening on port 3000 for any connection from clients. Whenever a client connects(someone user the browser to hit the url), the function **processRequest** is called. Note that your port number on the url needs to match with this number, so *http://localhost:3001/hello* would not work.
 
 ### Excercise
-Change the server code so that *http://localhost:2999/about* also returns a short message describing the website
+Change the server code so that *http://localhost:3000/about* also returns a short message describing the website
 
 # Part II - Website: Hello HTML
 The second part continues from the first one. Our website would now return HTML pages. The home page has URL to the About page. Both pages uses a CSS file for styling and an image file for the site logo.
@@ -106,5 +108,46 @@ function processRequest(request, response) {
 These 3 new lines just include the HandleBars library and set it as the view engine for the web server object.
 
 ## Step 2 Add HTML pages
+
+By Default, view engine look for pages in the 'views' folder, so create a folder named 'views' in the project directory. Next, create 2 html files index.html and about.html with the code below:
+
+index.html:
+```html
+<html>
+<head>
+<title>Home</title>
+</head>
+
+<body>
+
+<h1>Home Page</h1>
+
+<p> Welcome to home page </p>
+<a href="about.html">About</a>
+</body>
+</html>
+```
+
+about.html:
+```html
+<html>
+<head>
+<title>About</title>
+</head>
+
+<body>
+
+<h1>About</h1>
+
+<p> About me: I'm testing Node Js </p>
+
+</body>
+
+</html>
+```
+
+Your folder structure should now look like this:
+
+![Diagram 2](/images/part-2-2.png "Part 2 Diagram 1")
 
 
